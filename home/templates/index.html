@@ -1,0 +1,212 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spa Search</title>
+</head>
+<body>
+    <h1>Spa center</h1>
+    <form method="post" action="{% url 'spa_search' %}">
+        {% csrf_token %}
+        <div>
+            {{ form.keyword}}
+            <div>
+                <button type="submit" class="btn btn-">Search</button>
+            </div>
+        </div>
+    </form>
+<hr>
+<div class="container">
+    <div class="row">
+        {% for i in all %}
+        <div class="col-3">
+            <h1>{{i.name}}</h1>
+            <img src="{{i.spa_logo.url}}" alt="" style="height: 100px; width: 100px">
+            <p>{{i.description}}</p>
+            <a href="{% url 'spa_details' i.id %}">View Details</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html> -->
+
+
+
+
+<!-- spa/templates/spa/home.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spa Search</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Animate.css for background animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Include Widget Tweaks -->
+    {% load widget_tweaks %}
+    <style>
+        body {
+                
+            background: url('https://images.pexels.com/photos/7701172/pexels-photo-7701172.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') fixed;
+            margin: 0;
+            background-size: cover;
+            background-position: center; /* Center the background image */
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #ed3f8d;
+            box-shadow: 0 2px 4px #d67da5; /* Add a subtle shadow */
+            transition: background-color 0.5s, box-shadow 0.5s; /* Add smooth transition */
+        }
+        
+        .navbar:hover {
+            background-color: #db6198; /* Change to full opacity on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+        }
+        
+        /* Navbar brand styles */
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .navbar-brand img {
+           
+           
+        }
+        
+        /* Navbar toggler icon styles */
+        .navbar-toggler-icon {
+            background-color:transparent;
+        }
+        
+        /* Navbar links styles */
+        .navbar-nav .nav-link {
+            font-size: 18px;
+            color: #fff;
+        }
+        
+        /* Container styles */
+        .container-content {
+            padding-top: 100px;
+            text-align: center;
+        }
+        
+        /* Heading styles */
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: -8px;
+            color: #ffffff;
+        }
+        
+        /* Paragraph styles */
+        p {
+            font-size: 20px;
+            margin-bottom: -8px;
+            color: #ffffff;
+        }
+        
+        /* Search form styles */
+        .search-form {
+            margin-top: 20px;
+        }
+        
+        .input-group input {
+            height: 40px;
+            font-family: 'cursive';
+            font-size: 16px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            padding: 5px;
+        }
+        
+        .input-group-append button {
+            height: 40px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            background-color: #ed3f8d;
+            color: #fff;
+            font-family: 'cursive';
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        /* Footer styles */
+        footer {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            padding: 5px 0; /* Add padding */
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+       
+    </style>
+</head>
+<body>
+    <!-- Navbar code using Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'spa_search' %}">
+                <!-- <img src="{% static '/logo.jpg' %}" alt="Logo" style="max-height: 50px;"> -->
+                <i>Spa's Zone</i>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link " href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container container-content">
+        <h1 style="font-family: 'cursive';">Welcome to </h1><i style="color: #ed3f8d; font-family: 'cursive'; font-size: 48px">Spa's Zone</i>
+        <p style="font-family: cursive;">Discover the best spa centers near you. Find the perfect place to relax and rejuvenate.</p>
+        <!-- Stylish Search Bar -->
+        <div class="search-form">
+            <form method="post" action="{% url 'spa_search' %}" class="search-form">
+                {% csrf_token %}
+                <div class="input-group">
+                    {{ form.keyword|add_class:'form-control' }}
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer using Bootstrap -->
+    <!-- <footer style="background-color: rgba(51, 51, 51, 0.8); color: #fff; padding: 10px 0; text-align: center; position: fixed; bottom: 0; width: 100%;">
+        <div class="container">
+            <p style="margin: 0;">&copy; 2024 Spa Search. All rights reserved.</p>
+        </div>
+    </footer> -->
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

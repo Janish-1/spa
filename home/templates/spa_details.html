@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+    .container {
+        width: 100%;
+    }
+    
+    .grid-item {
+        display: flex;
+
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Spa Details Section -->
+                <div class="spa-details-section animated fadeIn">
+                    <img src="{{ spa_center.banner_image.url }}" alt="" class="img-fluid" style="height: 200px; width: 100%">
+                    <img src="{{ spa_center.spa_logo.url }}" alt="" class="img-fluid" style="    height: 160px;
+                    width: 162px;
+                    border-radius: 77px;
+                    margin-left: 45%;
+                    margin-top: -75px;
+                ">
+                    <h1 style="text-align: center;font-size:45px;font-weight:bold">{{ spa_center.name }}</h1>
+                    <h4 style="text-align: center;font-size:20px">{{ spa_center.owner_name }}</h4>
+                    <p style="text-align: center;">{{ spa_center.description }}</p>
+                    
+                </div>
+                <!-- Buttons -->
+                <button style="margin-left: 42%;" class="btn btn-primary btn-whatsapp"
+                    onclick="window.location.href='tel:{{ spa_center.whatsapp_contact }}'">WhatsApp</button>
+                <!-- <button onclick="openInGoogleMaps({{ spa_center.latitude }}, {{ spa_center.longitude }})">Open Location in Google Maps</button> -->
+                <button onclick="openInGoogleMaps('{{ spa_center.address }}')" style="margin-left: 75px;">Location</button>
+            </div>
+       <div class="container " style="margin-top: 3%;">
+    <div class="row">
+        <div class="col">
+            <div class="grid-item" style="height: 100px; width: 50%; margin: 20px auto; display: flex; align-items: center; justify-content: space-between;">
+                <div style="flex: 1; background-color: lightblue; height: 80px; text-align: center" >Column 1</div>
+                <div style="flex: 1; background-color: lightcoral; height: 80px; margin-left: 15%; text-align: center">Column 2</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="grid-item" style="height: 100px; width: 50%; margin: 20px auto; display: flex; align-items: center; justify-content: space-between;">
+                <div style="flex: 1; background-color: lightblue; height: 80px; text-align: center" >Column 1</div>
+                <div style="flex: 1; background-color: lightcoral; height: 80px; margin-left: 15%;">Column 2</div>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Our Services</h1>
+<div class="container">
+    <div class="services-section mt-4 animated fadeIn" style="display: flex;">
+        {% for service in spa_center.services.all %}
+        <div class="service-item" style="flex: 0 0 33.33%; padding: 0 0px;">
+            <div class="card mb-4" style="height: 100%;">
+                <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}" style="max-width: 375px; width: 100%; object-fit: cover; overflow: hidden;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ service.name }}</h5>
+                    <p class="card-text">{{ service.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="col-md-6" >
+    <div class="business-hours" style="text-align: center; margin-top: 3%;">
+        <p>Business Hours:</p>
+        <p>Monday: 10 AM - 9 PM</p>
+        <p>Tuesday: 10 AM - 9 PM</p>
+        <p>Wednesday: 10 AM - 9 PM</p>
+        <p>Thursday: 10 AM - 9 PM</p>
+        <p>Friday: 10 AM - 9 PM</p>
+        <p>Saturday: 10 AM - 9 PM</p>
+    </div>
+    <!-- Google Maps -->
+          
+</div>
+</div>
+
+<div class="gallery-section mt-4">
+    <h1>Our Gallery</h1>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <img src="{{spa_center.gallery_image1.url}}" alt="" class="img-fluid" style="height: 100px; width: 100px">
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <img src="{{spa_center.gallery_image2.url}}" alt="" class="img-fluid" style="height: 100px; width: 100px">
+        </div>
+    </div>
+</div>
+      
+    </div>
+    <script>
+        function openInGoogleMaps(address) {
+            // Construct the Google Maps URL with the address
+            var mapsUrl = 'https://www.google.com/maps?q=' + encodeURIComponent(address);
+                
+            // Open the location in Google Maps
+            window.open(mapsUrl);
+        }
+    </script>
+</body>
+</html>
